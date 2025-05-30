@@ -3,7 +3,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { Contact } from './entities/Contact';
 import * as dotenv from 'dotenv';
 
-dotenv.config(); // Load environment variables from .env file
+dotenv.config();
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -12,9 +12,9 @@ export const AppDataSource = new DataSource({
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    synchronize: true, // true for development (auto-creates schema), false for production (use migrations)
-    logging: false, // enable for debugging DB queries
-    entities: [Contact], // or [__dirname + '/entities/*.{js,ts}']
+    synchronize: true,
+    logging: false,
+    entities: [Contact],
     migrations: [__dirname + '/migrations/*.{js,ts}'],
     subscribers: [],
 } as DataSourceOptions); 

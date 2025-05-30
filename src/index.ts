@@ -1,9 +1,9 @@
-import 'reflect-metadata'; // Must be the first import
+import 'reflect-metadata';
 import express, { Request, Response } from 'express';
 import { AppDataSource } from './data-source';
-import { Contact } from './entities/Contact'; // We'll use this later
+import { Contact } from './entities/Contact';
 import * as dotenv from 'dotenv';
-import { ContactService } from './services/ContactService'; // Import the service
+import { ContactService } from './services/ContactService';
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ AppDataSource.initialize()
     .then(() => {
         console.log('Data Source has been initialized!');
 
-        const contactService = new ContactService(); // Instantiate the service
+        const contactService = new ContactService();
 
         app.get('/', (req: Request, res: Response) => {
             res.send('Identity Reconciliation Service with TypeORM is running!');
@@ -26,7 +26,6 @@ AppDataSource.initialize()
             const { email, phoneNumber } = req.body;
 
             if (phoneNumber && typeof phoneNumber !== 'string') {
-                // As per spec, phoneNumber might come as number, TypeORM expects string.
                 req.body.phoneNumber = String(phoneNumber);
             }
 
@@ -35,7 +34,6 @@ AppDataSource.initialize()
                 res.status(200).json(result);
             } catch (error: any) {
                 console.error('Error in /identify:', error);
-                // Differentiate between client errors (e.g., bad input) and server errors
                 if (error.message === 'Email or phone number must be provided.') {
                     res.status(400).json({ error: error.message });
                 } else {

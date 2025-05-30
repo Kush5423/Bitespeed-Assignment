@@ -5,20 +5,20 @@ export enum LinkPrecedence {
     SECONDARY = 'secondary',
 }
 
-@Entity('contacts') // Specifies the table name
+@Entity('contacts')
 export class Contact {
     @PrimaryGeneratedColumn()
-    id: number;
+    id!: number;
 
-    @Index() // Index for faster lookups
+    @Index()
     @Column({ type: 'varchar', nullable: true })
     phoneNumber?: string | null;
 
-    @Index() // Index for faster lookups
+    @Index()
     @Column({ type: 'varchar', nullable: true })
     email?: string | null;
 
-    @Index() // Index for faster lookups
+    @Index()
     @Column({ type: 'int', nullable: true })
     linkedId?: number | null;
 
@@ -34,13 +34,13 @@ export class Contact {
         enum: LinkPrecedence,
         default: LinkPrecedence.PRIMARY,
     })
-    linkPrecedence: LinkPrecedence;
+    linkPrecedence!: LinkPrecedence;
 
     @CreateDateColumn()
-    createdAt: Date;
+    createdAt!: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updatedAt!: Date;
 
     @Column({ type: 'timestamp', nullable: true })
     deletedAt?: Date | null;
